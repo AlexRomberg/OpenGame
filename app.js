@@ -28,12 +28,22 @@ app.use(express.static('public')); // static files
 // handle requests
 app.get('/', (req, res) => {
     res.render('index', {
-        title: 'index'
+        file: 'index',
+        title: 'OG | Home'
     });
 });
 
+app.get('/new', (req, res) => {
+    res.render('new', {
+        file: 'new',
+        title: 'Neuer Raum'
+    });
+});
+
+
 app.get('/[0-9]{5}', (req, res) => {
     res.render('game', {
+        file: 'game',
         title: 'Gameboard',
         roomId: req.baseUrl
     });

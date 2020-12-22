@@ -1,0 +1,65 @@
+/*
+ general.css
+------------------------------------------------------
+ general styling for open game
+
+ (c) A.Romberg @ ARO-Studios
+------------------------------------------------------
+*/
+
+
+/* --- fonts --- */
+
+@font-face {
+    font-family: 'Nunito';
+    font-style: normal;
+    font-display: swap;
+    src: url(/res/font/Nunito-Regular.ttf);
+}
+
+
+/* --- general --- */
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Nunito';
+    /* colors */
+    --accent: #ffc30e;
+    --background: linear-gradient(to right bottom, #222, #353535);
+    --button-background: #4E4E4E;
+    --button-background-hover: #5C5C5C;
+    --button-text: #fff;
+    --font-color: #bbb;
+    --box-background: #333;
+}
+
+
+/* --- header --- */
+
+header {
+    background-color: var(--accent);
+    padding: 10px;
+    width: 100%;
+}
+
+
+/* --- main --- */
+
+main {
+    width: 100%;
+    height: calc(100vh - 63px - 32px);
+    background: var(--background);
+}
+
+
+/* --- footer --- */
+
+footer {
+    width: 100%;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--accent);
+}

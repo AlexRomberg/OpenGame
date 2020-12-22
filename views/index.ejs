@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<%- include("./segments/head.ejs") %>
+
+    <body>
+        <%- include("./segments/header.ejs") %>
+            <main>
+                <div class="button-box">
+                    <h2>Wilkommen</h2>
+                    <button id="newRoomBtn">Neuer Raum</button>
+                    <input id="codeInput" type="text" maxlength="5" pattern="[0-9]{5}" placeholder="Code" hidden required></input>
+                    <button id="joinBtn">Beitreten</button>
+                </div>
+            </main>
+            <%- include("./segments/footer.ejs") %>
+                <script type="text/javascript" src="/js/index.js"></script>
+    </body>
+
+</html>
