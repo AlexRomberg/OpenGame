@@ -9,7 +9,9 @@
                     <h2>Privater Bereich</h2>
                     <div id="personalSpace"></div>
                 </div>
-                <div id="gameboard"></div>
+                <div id="gameboard">
+                    <div id="23984924232938402"></div>
+                </div>
                 <div class="sidebar">
                     <div class="library">
                         <h2>Bibliothek</h2>
@@ -17,14 +19,22 @@
                     </div>
                     <div class="chat">
                         <h2>Chat</h2>
-                        <div id="messages"></div>
+                        <div id="messages">
+                            <% messages.forEach(message => { %>
+                                <p>
+                                    <%= message %>
+                                </p>
+                                <% }); %>
+                        </div>
                         <div class="compose">
-                            <input type="text" id="chatInput">
+                            <input type="text" id="chatInput" placeholder="Nachricht...">
                             <button id="chatSend">✉</button>
                         </div>
                     </div>
                 </div>
             </main>
+            <script src="/js/game.js"></script>
+            <script src="/js/chat.js"></script>
     </body>
 
 </html>

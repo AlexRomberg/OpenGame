@@ -4,7 +4,9 @@ const port = 80;
 // load requirements
 const express = require('express');
 const socket = require('socket.io');
+const fs = require('fs');
 const cm = require('./customModules/consoleModule');
+const { stringify } = require('querystring');
 console.clear()
 cm.log("white", "starting...");
 
@@ -25,6 +27,8 @@ cm.log("green", "modules initialized!");
 app.set('view engine', 'ejs')
 app.use(express.static('public')); // static files
 
+
+
 // handle requests
 app.get('/', (req, res) => {
     res.render('index', {
@@ -33,6 +37,7 @@ app.get('/', (req, res) => {
     });
 });
 
+// newRoom
 app.get('/new', (req, res) => {
     res.render('new', {
         file: 'new',
@@ -40,12 +45,14 @@ app.get('/new', (req, res) => {
     });
 });
 
-
+// active game
 app.get('/[0-9]{5}', (req, res) => {
+    let messages = getMessages();
     res.render('game', {
         file: 'game',
         title: 'Gameboard',
-        roomId: req.baseUrl
+        roomId: req.baseUrl,
+        messages
     });
 });
 
@@ -56,20 +63,37 @@ app.use((req, res) => {
     cm.log("yellow", "redirected to /");
 });
 
-// handle client connections
-io.on('connection', (client) => {
-    console.log('a user connected');
-    client.broadcast.emit('hi');
 
+
+// handle client connections
+let ConnectedUsers = 0;
+
+io.on('connection', (client) => {
+    ConnectedUsers++;
+    cm.log("cyan", "user connected (total: " + ConnectedUsers + ")");
 
     client.on('disconnect', () => {
-        console.log('user disconnected');
+        ConnectedUsers--;
+        cm.log("cyan", "user disconnected (total: " + ConnectedUsers + ")");
     });
 
-    client.on('chat message', (msg) => {
-        io.emit('chat message', msg);
+    client.on('newChatMsg', (msg) => {
+        cm.log("cyan", "new chat message: " + msg);
+        saveMessage(msg);
+        io.emit('newChatMsg', msg);
     });
 });
+
+// message handeling
+function saveMessage(text) {
+    fs.appendFile('data/chatMessages.txt', "\n" + text, function(err) {
+        if (err) throw err;
+    });
+}
+
+function getMessages() {
+    return fs.readFileSync('data/chatMessages.txt').toString().split('\n');
+}
 
 cm.log("green", "Server Running!");
 cm.log("blue", "http://localhost:" + port + "\n-------------------------------------------");

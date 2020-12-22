@@ -1,2 +1,7 @@
+# node modules
 node_modules/
 package-lock.json
+
+# data
+data/
+public/res/gamedata/

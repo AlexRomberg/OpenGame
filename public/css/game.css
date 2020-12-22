@@ -19,7 +19,15 @@ main {
 
 /* --- gameboard --- */
 
-.personalSpace, .sidebar {
+#gameboard * {
+    position: relative;
+}
+
+
+/* --- sidebars --- */
+
+.personalSpace,
+.sidebar {
     width: 400px;
     display: flex;
     flex-flow: column nowrap;
@@ -32,9 +40,14 @@ h2 {
     color: var(--font-color);
 }
 
-#personalSpace {
+#personalSpace,
+#library,
+#messages {
     overflow-y: auto;
     scrollbar-width: thin;
+}
+
+#personalSpace {
     height: calc(100vh - 63px - 52px);
 }
 
@@ -48,8 +61,19 @@ h2 {
     height: calc((100vh - 63px)/2 - 52px);
 }
 
+
+/* --- chat --- */
+
 #messages {
     height: calc((100vh - 63px)/2 - 52px - 39px);
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 5px;
+}
+
+#messages p {
+    color: white;
+    font-size: 0.9em
 }
 
 .compose {
@@ -77,5 +101,3 @@ h2 {
 .compose button:hover {
     background-color: #bbb;
 }
-
-
