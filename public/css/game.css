@@ -1,0 +1,81 @@
+/*
+ game.css
+------------------------------------------------------
+ styling for gameboard of open game
+
+ (c) A.Romberg @ ARO-Studios
+------------------------------------------------------
+*/
+
+
+/* --- main --- */
+
+main {
+    min-height: calc(100vh - 63px);
+    display: flex;
+    flex-flow: nowrap;
+}
+
+
+/* --- gameboard --- */
+
+.personalSpace, .sidebar {
+    width: 400px;
+    display: flex;
+    flex-flow: column nowrap;
+    background-color: var(--sidebar-background);
+}
+
+h2 {
+    padding: 10px;
+    background-color: #0002;
+    color: var(--font-color);
+}
+
+#personalSpace {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    height: calc(100vh - 63px - 52px);
+}
+
+#gameboard {
+    width: 100%;
+    box-shadow: 0 0 10px 0px #0004;
+    background-color: var(--button-background-hover);
+}
+
+#library {
+    height: calc((100vh - 63px)/2 - 52px);
+}
+
+#messages {
+    height: calc((100vh - 63px)/2 - 52px - 39px);
+}
+
+.compose {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    padding: 3px 5px;
+}
+
+.compose input {
+    width: 100%;
+    border: none;
+    border-radius: 50px;
+    padding: 7px 15px;
+    margin-right: 5px;
+}
+
+.compose button {
+    border: none;
+    padding: 0px 9px;
+    border-radius: 50%;
+    transition: 0.3s
+}
+
+.compose button:hover {
+    background-color: #bbb;
+}
+
+

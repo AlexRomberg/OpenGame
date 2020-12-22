@@ -4,8 +4,27 @@
 
     <body>
         <%- include("./segments/header.ejs") %>
-            <main></main>
-            <%- include("./segments/footer.ejs") %>
+            <main>
+                <div class="personalSpace">
+                    <h2>Privater Bereich</h2>
+                    <div id="personalSpace"></div>
+                </div>
+                <div id="gameboard"></div>
+                <div class="sidebar">
+                    <div class="library">
+                        <h2>Bibliothek</h2>
+                        <div id="library"></div>
+                    </div>
+                    <div class="chat">
+                        <h2>Chat</h2>
+                        <div id="messages"></div>
+                        <div class="compose">
+                            <input type="text" id="chatInput">
+                            <button id="chatSend">✉</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
     </body>
 
 </html>
