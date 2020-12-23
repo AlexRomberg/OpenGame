@@ -1,21 +1,19 @@
-// send Message on Enter
+// send message on enter or button click
+$('#chatSend').click(sendMessage);
 $('#chatInput').keypress(function(e) {
     if (e.which == 13) {
-        if ($('#chatInput').val() != "") {
-            server.emit('newChatMsg', $('#chatInput').val());
-            $('#chatInput').val("");
-        }
+        sendMessage();
         return false;
     }
 });
 
-// send Message on Button pressed
-$('#chatSend').click(function() {
+// send message to server
+function sendMessage() {
     if ($('#chatInput').val() != "") {
         server.emit('newChatMsg', $('#chatInput').val());
         $('#chatInput').val("");
     }
-});
+}
 
 
 // handle incoming message

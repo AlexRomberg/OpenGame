@@ -41,13 +41,15 @@ app.get('/', (req, res) => {
 app.get('/new', (req, res) => {
     res.render('new', {
         file: 'new',
-        title: 'Neuer Raum'
+        title: 'Neuer Raum',
+        presetList: ['UNO']
     });
 });
 
 // active game
 app.get('/[0-9]{5}', (req, res) => {
-    let messages = getMessages();
+    let gameCode = req.url.slice(-5);
+    let messages = getMessages(gameCode);
     res.render('game', {
         file: 'game',
         title: 'Gameboard',
@@ -79,20 +81,31 @@ io.on('connection', (client) => {
 
     client.on('newChatMsg', (msg) => {
         cm.log("cyan", "new chat message: " + msg);
-        saveMessage(msg);
+        saveMessage(msg, getGameCode(client));
         io.emit('newChatMsg', msg);
     });
 });
 
-// message handeling
-function saveMessage(text) {
-    fs.appendFile('data/chatMessages.txt', "\n" + text, function(err) {
+function getGameCode(client) {
+    return client.handshake.headers.referer.slice(-5);
+}
+
+function saveMessage(message, roomId) {
+    let filePath = 'data/chat/' + roomId + '.txt';
+    let messageText = "\n" + message;
+
+    fs.appendFile(filePath, messageText, function(err) {
         if (err) throw err;
     });
 }
 
-function getMessages() {
-    return fs.readFileSync('data/chatMessages.txt').toString().split('\n');
+function getMessages(roomId) {
+    try {
+        let filePath = 'data/chat/' + roomId + '.txt';
+        return fs.readFileSync(filePath).toString().split('\n');
+    } catch (err) {
+        return [];
+    }
 }
 
 cm.log("green", "Server Running!");
