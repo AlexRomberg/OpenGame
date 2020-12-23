@@ -4,7 +4,18 @@
 
     <body>
         <%- include("./segments/header.ejs") %>
-            <main></main>
+            <main>
+                <div class="container">
+                    <h2>Wähle ein Spiel</h2>
+                    <div class="list">
+                        <% presetList.forEach(presetName=> { %>
+                            <div class="preset">
+                                <img src="/res/gamedata/presetdata/<%= presetName %>/cover.png" alt="<%= presetName %>cover">
+                            </div>
+                            <% }); %>
+                    </div>
+                </div>
+            </main>
             <%- include("./segments/footer.ejs") %>
     </body>
 

@@ -1,0 +1,34 @@
+main {
+    padding: 20px;
+}
+
+.container {
+    background-color: #fff2;
+    border-radius: 5px;
+    padding: 10px 15px;
+}
+
+.container h2 {
+    margin-bottom: 10px;
+    color: var(--font-color)
+}
+
+.list {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.preset {
+    margin: 20px;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.preset img {
+    transition: filter 0.2s;
+    filter: brightness(1)
+}
+
+.preset img:hover {
+    filter: brightness(0.75);
+}
