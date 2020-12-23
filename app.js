@@ -39,11 +39,15 @@ app.get('/', (req, res) => {
 
 // newRoom
 app.get('/new', (req, res) => {
-    res.render('new', {
-        file: 'new',
-        title: 'Neuer Raum',
-        presetList: ['UNO']
-    });
+    if ('game' in req.query) {
+        startGame(req.query.game, res);
+    } else {
+        res.render('new', {
+            file: 'new',
+            title: 'Neuer Raum',
+            presetList: ['UNO']
+        });
+    }
 });
 
 // active game
@@ -53,7 +57,7 @@ app.get('/[0-9]{5}', (req, res) => {
     res.render('game', {
         file: 'game',
         title: 'Gameboard',
-        roomId: req.baseUrl,
+        gameCode: req.baseUrl,
         messages
     });
 });
@@ -90,8 +94,8 @@ function getGameCode(client) {
     return client.handshake.headers.referer.slice(-5);
 }
 
-function saveMessage(message, roomId) {
-    let filePath = 'data/chat/' + roomId + '.txt';
+function saveMessage(message, gameCode) {
+    let filePath = 'data/chat/' + gameCode + '.txt';
     let messageText = "\n" + message;
 
     fs.appendFile(filePath, messageText, function(err) {
@@ -99,14 +103,55 @@ function saveMessage(message, roomId) {
     });
 }
 
-function getMessages(roomId) {
+function getMessages(gameCode) {
     try {
-        let filePath = 'data/chat/' + roomId + '.txt';
+        let filePath = 'data/chat/' + gameCode + '.txt';
         return fs.readFileSync(filePath).toString().split('\n');
     } catch (err) {
         return [];
     }
 }
+
+function startGame(gameId, res) {
+    try {
+        if (Number(gameId) != NaN) {
+            const presetfile = fs.readFileSync('data/presets.json', 'utf8');
+            const gamelist = JSON.parse(presetfile);
+            const presets = gamelist.presets
+            if (presets.length > gameId) {
+                let gameCode = getRandomInt(10000, 100000);
+                while (fs.existsSync('data/roomdata/' + gameCode + '.json')) {
+                    gameCode = getRandomInt();
+                }
+                console.log(presets[gameId]);
+                copyGameinfo(gameCode, presets[gameId]);
+                res.redirect('/' + gameCode);
+                return;
+            }
+        }
+    } catch (err) {
+        console.log("Error writing file: " + err);
+        cm.log('red', 'Error loading gamepresets');
+    }
+    res.redirect('/new');
+}
+
+function copyGameinfo(gameCode, options) {
+    let fileDestinationPath = 'data/roomdata/' + gameCode + '.json';
+    try {
+        const data = JSON.stringify(options);
+        fs.writeFileSync(fileDestinationPath, data, 'utf8');
+    } catch (err) {
+        console.log("Error writing file: " + err);
+    }
+}
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min);
+}
+
 
 cm.log("green", "Server Running!");
 cm.log("blue", "http://localhost:" + port + "\n-------------------------------------------");
