@@ -19,4 +19,5 @@ function sendMessage() {
 // handle incoming message
 server.on('newChatMsg', function(msg) {
     $('#messages').append($('<p>').text(msg));
+    $("#messages").scrollTop($("#messages")[0].scrollHeight);
 });
