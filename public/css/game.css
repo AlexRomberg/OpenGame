@@ -7,6 +7,10 @@
 ------------------------------------------------------
 */
 
+* {
+    user-select: none;
+}
+
 
 /* --- main --- */
 
@@ -19,8 +23,22 @@ main {
 
 /* --- gameboard --- */
 
-#gameboard * {
+#gameboard {
     position: relative;
+    overflow: auto;
+    scrollbar-width: thin;
+}
+
+#gameboard div {
+    position: absolute;
+}
+
+#gameboard img {
+    pointer-events: none;
+}
+
+.animated {
+    transition: 1s ease-in-out;
 }
 
 
@@ -61,6 +79,10 @@ h2 {
     height: calc((100vh - 63px)/2 - 52px);
 }
 
+.library img {
+    margin: 5px;
+}
+
 
 /* --- chat --- */
 
@@ -73,7 +95,8 @@ h2 {
 
 #messages p {
     color: white;
-    font-size: 0.9em
+    font-size: 0.9em;
+    user-select: text;
 }
 
 .compose {

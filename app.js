@@ -70,8 +70,6 @@ app.use((req, res) => {
     cm.log("yellow", "redirected to /");
 });
 
-
-
 // handle client connections
 let ConnectedUsers = 0;
 
@@ -88,6 +86,20 @@ io.on('connection', (client) => {
         cm.log("cyan", "new chat message: " + msg);
         saveMessage(msg, getGameCode(client));
         io.emit('newChatMsg', msg);
+    });
+
+    client.on('addItem', (id) => {
+        let gameCode = getGameCode(client);
+        let newItem = addItem(id, gameCode);
+        cm.log('green', "- added " + newItem.type + " to " + gameCode);
+        io.emit('addItem', newItem);
+    });
+
+    client.on('moveItem', (options) => {
+        let gameCode = getGameCode(client);
+        moveItem(options, gameCode);
+        cm.log('yellow', "- moved item " + options.id + " on " + gameCode);
+        io.emit('moveItem', options);
     });
 });
 
@@ -106,14 +118,12 @@ function startGame(gameId, res) {
                 while (fs.existsSync('data/roomdata/' + gameCode + '.json')) {
                     gameCode = rand.getInt(10000, 100000);
                 }
-                console.log(presets[gameId]);
                 copyGameinfo(gameCode, presets[gameId]);
                 res.redirect('/' + gameCode);
                 return;
             }
         }
     } catch (err) {
-        console.log("Error writing file: " + err);
         cm.log('red', 'Error loading gamepresets');
     }
     res.redirect('/new');
@@ -125,14 +135,59 @@ function copyGameinfo(gameCode, options) {
         const data = JSON.stringify(options);
         fs.writeFileSync(fileDestinationPath, data, 'utf8');
     } catch (err) {
-        console.log("Error writing file: " + err);
+        cm.log("red", "Error creating gameinfo file: " + err);
     }
 }
 
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min) + min);
+function getRoomJson(gameCode) {
+    let filePath = 'data/roomdata/' + gameCode + '.json';
+    try {
+        const fileContent = fs.readFileSync(filePath, 'utf8');
+        let roomData = JSON.parse(fileContent);
+        return roomData;
+    } catch (err) {
+        cm.log("red", "Requested roomfile not found: " + gameCode + ": " + err);
+    }
+}
+
+function writeRoomJson(roomData, gameCode) {
+    try {
+        let filePath = 'data/roomdata/' + gameCode + '.json';
+        let data = JSON.stringify(roomData, null, 4);
+        fs.writeFileSync(filePath, data, 'utf8');
+    } catch (err) {
+        cm.log("red", "Error writing Roomfile: " + gameCode + "\n (" + err + ")");
+    }
+}
+
+// class game possible
+function saveMessage(message, gameCode) {
+    let roomData = getRoomJson(gameCode);
+    roomData.messages.push(message);
+    writeRoomJson(roomData, gameCode);
+}
+
+function addItem(id, gameCode) {
+    let data = getRoomJson(gameCode);
+    let item = clone(data.library[id]);
+    let itemId = data.gameboard.length;
+    item.x = 0;
+    item.y = 0;
+    data.gameboard.push(item);
+    writeRoomJson(data, gameCode);
+    return { type: item.type, name: item.name, image: item.image, id: itemId, flipable: item.flipable, x: item.x, y: item.y };
+}
+
+function moveItem(options, gameCode) {
+    let data = getRoomJson(gameCode);
+    data.gameboard[options.id].x = options.x;
+    data.gameboard[options.id].y = options.y;
+    writeRoomJson(data, gameCode);
+    return options;
+}
+
+function clone(object) {
+    return JSON.parse(JSON.stringify(object));
 }
 
 
