@@ -6,6 +6,7 @@ const express = require('express');
 const socket = require('socket.io');
 const fs = require('fs');
 const cm = require('./customModules/consoleModule');
+const rand = require('./customModules/random');
 const { stringify } = require('querystring');
 console.clear()
 cm.log("white", "starting...");
@@ -117,11 +118,11 @@ function startGame(gameId, res) {
         if (Number(gameId) != NaN) {
             const presetfile = fs.readFileSync('data/presets.json', 'utf8');
             const gamelist = JSON.parse(presetfile);
-            const presets = gamelist.presets
+            const presets = gamelist.presets;
             if (presets.length > gameId) {
-                let gameCode = getRandomInt(10000, 100000);
+                let gameCode = rand.getInt(10000, 100000);
                 while (fs.existsSync('data/roomdata/' + gameCode + '.json')) {
-                    gameCode = getRandomInt();
+                    gameCode = rand.getInt(10000, 100000);
                 }
                 console.log(presets[gameId]);
                 copyGameinfo(gameCode, presets[gameId]);
