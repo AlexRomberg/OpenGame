@@ -10,17 +10,25 @@
                     <div id="personalSpace"></div>
                 </div>
                 <div id="gameboard">
-                    <div id="23984924232938402"></div>
+                    <% let id=0; data.gameboard.forEach(item=> { if(item != null) {%>
+                        <div class="animated" id="<%= id %>" objType="<%= item.type %>" flipable="<%= item.flipable %>" style="top: <%= item.y %>px; left: <%= item.x %>px;">
+                            <img src="/res/gamedata/objectdata/<%= item.image %>" alt="<%= item.name %>">
+                        </div>
+                        <%} id++; }); %>
                 </div>
                 <div class="sidebar">
                     <div class="library">
                         <h2>Bibliothek</h2>
-                        <div id="library"></div>
+                        <div id="library">
+                            <% id=0; data.library.forEach(item=> { %>
+                                <img id="<%= id %>" src="/res/gamedata/objectdata/<%= item.image %>" alt="<%= item.name %>" tooltip="<%= item.name %>">
+                                <%id++; }); %>
+                        </div>
                     </div>
                     <div class="chat">
                         <h2>Chat</h2>
                         <div id="messages">
-                            <% messages.forEach(message => { %>
+                            <% data.messages.forEach(message=> { %>
                                 <p>
                                     <%= message %>
                                 </p>

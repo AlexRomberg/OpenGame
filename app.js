@@ -54,12 +54,12 @@ app.get('/new', (req, res) => {
 // active game
 app.get('/[0-9]{5}', (req, res) => {
     let gameCode = req.url.slice(-5);
-    let messages = getMessages(gameCode);
+    let gameData = getRoomJson(gameCode);
     res.render('game', {
         file: 'game',
         title: 'Gameboard',
         gameCode: req.baseUrl,
-        messages
+        data: gameData
     });
 });
 
@@ -93,24 +93,6 @@ io.on('connection', (client) => {
 
 function getGameCode(client) {
     return client.handshake.headers.referer.slice(-5);
-}
-
-function saveMessage(message, gameCode) {
-    let filePath = 'data/chat/' + gameCode + '.txt';
-    let messageText = "\n" + message;
-
-    fs.appendFile(filePath, messageText, function(err) {
-        if (err) throw err;
-    });
-}
-
-function getMessages(gameCode) {
-    try {
-        let filePath = 'data/chat/' + gameCode + '.txt';
-        return fs.readFileSync(filePath).toString().split('\n');
-    } catch (err) {
-        return [];
-    }
 }
 
 function startGame(gameId, res) {
