@@ -4,7 +4,7 @@
     "description": "a realtime multiplayer with an open game base",
     "main": "app.js",
     "scripts": {
-        "start": "nodemon --ignore public/,data/ app.js"
+        "start": "nodemon app.js"
     },
     "author": "AlexRomberg",
     "license": "GPL-3.0-or-later",
@@ -15,5 +15,11 @@
     },
     "devDependencies": {
         "nodemon": "^2.0.6"
+    },
+    "nodemonConfig": {
+        "ignore": [
+            "data/*",
+            "public/*"
+        ]
     }
 }
