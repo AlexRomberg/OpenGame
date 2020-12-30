@@ -7,7 +7,7 @@ const socket = require('socket.io');
 const fs = require('fs');
 const cm = require('./customModules/consoleModule');
 const rand = require('./customModules/random');
-const { stringify } = require('querystring');
+const game = require('./customModules/game');
 console.clear()
 cm.log("white", "starting...");
 
@@ -54,7 +54,7 @@ app.get('/new', (req, res) => {
 // active game
 app.get('/[0-9]{5}', (req, res) => {
     let gameCode = req.url.slice(-5);
-    let gameData = getRoomJson(gameCode);
+    let gameData = game.getRoomJson(gameCode);
     res.render('game', {
         file: 'game',
         title: 'Gameboard',
@@ -76,6 +76,7 @@ let ConnectedUsers = 0;
 io.on('connection', (client) => {
     ConnectedUsers++;
     cm.log("cyan", "user connected (total: " + ConnectedUsers + ")");
+    let gameCode = game.getCode(client);
 
     client.on('disconnect', () => {
         ConnectedUsers--;
@@ -83,29 +84,21 @@ io.on('connection', (client) => {
     });
 
     client.on('newChatMsg', (msg) => {
-        cm.log("cyan", "new chat message: " + msg);
-        saveMessage(msg, getGameCode(client));
+        game.saveMessage(msg, gameCode);
         io.emit('newChatMsg', msg);
     });
 
     client.on('addItem', (id) => {
-        let gameCode = getGameCode(client);
-        let newItem = addItem(id, gameCode);
-        cm.log('green', "- added " + newItem.type + " to " + gameCode);
+        let newItem = game.addItem(id, gameCode);
         io.emit('addItem', newItem);
     });
 
     client.on('moveItem', (options) => {
-        let gameCode = getGameCode(client);
-        moveItem(options, gameCode);
-        cm.log('yellow', "- moved item " + options.id + " on " + gameCode);
+        game.moveItem(options, gameCode);
         io.emit('moveItem', options);
     });
 });
 
-function getGameCode(client) {
-    return client.handshake.headers.referer.slice(-5);
-}
 
 function startGame(gameId, res) {
     try {
@@ -137,57 +130,6 @@ function copyGameinfo(gameCode, options) {
     } catch (err) {
         cm.log("red", "Error creating gameinfo file: " + err);
     }
-}
-
-function getRoomJson(gameCode) {
-    let filePath = 'data/roomdata/' + gameCode + '.json';
-    try {
-        const fileContent = fs.readFileSync(filePath, 'utf8');
-        let roomData = JSON.parse(fileContent);
-        return roomData;
-    } catch (err) {
-        cm.log("red", "Requested roomfile not found: " + gameCode + ": " + err);
-    }
-}
-
-function writeRoomJson(roomData, gameCode) {
-    try {
-        let filePath = 'data/roomdata/' + gameCode + '.json';
-        let data = JSON.stringify(roomData, null, 4);
-        fs.writeFileSync(filePath, data, 'utf8');
-    } catch (err) {
-        cm.log("red", "Error writing Roomfile: " + gameCode + "\n (" + err + ")");
-    }
-}
-
-// class game possible
-function saveMessage(message, gameCode) {
-    let roomData = getRoomJson(gameCode);
-    roomData.messages.push(message);
-    writeRoomJson(roomData, gameCode);
-}
-
-function addItem(id, gameCode) {
-    let data = getRoomJson(gameCode);
-    let item = clone(data.library[id]);
-    let itemId = data.gameboard.length;
-    item.x = 0;
-    item.y = 0;
-    data.gameboard.push(item);
-    writeRoomJson(data, gameCode);
-    return { type: item.type, name: item.name, image: item.image, id: itemId, flipable: item.flipable, x: item.x, y: item.y };
-}
-
-function moveItem(options, gameCode) {
-    let data = getRoomJson(gameCode);
-    data.gameboard[options.id].x = options.x;
-    data.gameboard[options.id].y = options.y;
-    writeRoomJson(data, gameCode);
-    return options;
-}
-
-function clone(object) {
-    return JSON.parse(JSON.stringify(object));
 }
 
 
