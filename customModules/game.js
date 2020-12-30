@@ -1,11 +1,35 @@
 const cm = require('./consoleModule');
 const fs = require('fs');
 
+let ConnectedUsers = 0;
+
 exports.saveMessage = function (message, gameCode) {
     let roomData = this.getRoomJson(gameCode);
     roomData.messages.push(message);
     this.writeRoomJson(roomData, gameCode);
     cm.log("cyan", "new chat message: " + message);
+}
+
+exports.addUser = function (user, gameCode) {
+    ConnectedUsers++;
+    let userData = this.getUserJson();
+    try {
+        let userlist = userData[gameCode].users;
+        userlist.push(user);
+    } catch (e) {
+        userData[gameCode] = [user];
+    }
+    this.writeUserJson(userData);
+    cm.log("cyan", "user connected (total: " + ConnectedUsers + ")");
+}
+
+exports.removeUser = function (id, gameCode) {
+    ConnectedUsers--;
+    let userData = this.getUserJson();
+    let index = userData[gameCode].findIndex(x => x.id === id);
+    userData[gameCode].splice(index, 1);
+    this.writeUserJson(userData);
+    cm.log("cyan", "user disconnected (total: " + ConnectedUsers + ")");
 }
 
 exports.addItem = function (id, gameCode) {
@@ -42,8 +66,8 @@ exports.moveItem = function (options, gameCode) {
 
 // JSON handeling
 exports.getRoomJson = function (gameCode) {
-    let filePath = 'data/roomdata/' + gameCode + '.json';
     try {
+        let filePath = 'data/roomdata/' + gameCode + '.json';
         const fileContent = fs.readFileSync(filePath, 'utf8');
         let roomData = JSON.parse(fileContent);
         return roomData;
@@ -59,6 +83,27 @@ exports.writeRoomJson = function (roomData, gameCode) {
         fs.writeFileSync(filePath, data, 'utf8');
     } catch (err) {
         cm.log("red", "Error writing Roomfile: " + gameCode + "\n (" + err + ")");
+    }
+}
+
+exports.getUserJson = function () {
+    try {
+        let filePath = 'data/users.json';
+        const fileContent = fs.readFileSync(filePath, 'utf8');
+        let roomData = JSON.parse(fileContent);
+        return roomData;
+    } catch (err) {
+        cm.log("red", "Requested userfile not found: \n(" + err + ")");
+    }
+}
+
+exports.writeUserJson = function (roomData) {
+    try {
+        let filePath = 'data/users.json';
+        let data = JSON.stringify(roomData, null, 4);
+        fs.writeFileSync(filePath, data, 'utf8');
+    } catch (err) {
+        cm.log("red", "Error writing userfile: \n (" + err + ")");
     }
 }
 

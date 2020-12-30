@@ -30,7 +30,7 @@
                         <div id="messages">
                             <% data.messages.forEach(message=> { %>
                                 <p>
-                                    <%= message %>
+                                    <%= message.owner + ": " + message.text %>
                                 </p>
                                 <% }); %>
                         </div>

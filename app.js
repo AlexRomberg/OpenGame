@@ -83,16 +83,14 @@ app.use((req, res) => {
 });
 
 // handle client connections
-let ConnectedUsers = 0;
 
 io.on('connection', (client) => {
-    ConnectedUsers++;
-    cm.log("cyan", "user connected (total: " + ConnectedUsers + ")");
     let gameCode = game.getCode(client);
+    let cookies = parseCookies(client.handshake.headers.cookie);
+    game.addUser({ id: cookies.userId, name: cookies.userName }, gameCode);
 
     client.on('disconnect', () => {
-        ConnectedUsers--;
-        cm.log("cyan", "user disconnected (total: " + ConnectedUsers + ")");
+        game.removeUser(cookies.userId, gameCode);
     });
 
     client.on('newChatMsg', (msg) => {
@@ -185,6 +183,8 @@ function parseCookies(cookies) {
     cookieString += "}";
     return JSON.parse(cookieString);
 }
+
+game.writeUserJson({});
 
 cm.log("green", "Server Running!");
 cm.log("blue", "http://localhost:" + port + "\n-------------------------------------------");

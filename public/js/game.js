@@ -108,3 +108,9 @@ function drag(e) {
         }
     }
 }
+
+// Cookies
+function getCookie(name) {
+    let result = document.cookie.match("(^|[^;]+)\\s*" + name + "\\s*=\\s*([^;]+)")
+    return result ? result.pop() : false
+}
