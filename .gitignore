@@ -5,3 +5,6 @@ package-lock.json
 # data
 data/
 public/res/gamedata/
+
+# VSCode
+.vscode/
