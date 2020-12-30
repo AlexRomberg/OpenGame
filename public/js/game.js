@@ -6,13 +6,13 @@ function getGameCode() {
     return url.slice(-5);
 }
 
-$('.library img').click(function(sender) {
+$('.library img').click(function (sender) {
     console.log(sender.target.id);
     server.emit('addItem', sender.target.id);
 });
 
 // handle incoming changes
-server.on('addItem', function(item) {
+server.on('addItem', function (item) {
     let object = $('<div></div>')
         .append($("<img>").attr('src', ("/res/gamedata/objectdata/" + item.image)).attr('alt', item.name))
         .attr('objType', item.type)
@@ -24,7 +24,7 @@ server.on('addItem', function(item) {
     $("#gameboard").append(object);
 });
 
-server.on('moveItem', function(options) {
+server.on('moveItem', function (options) {
     $("#" + options.id).css('top', options.y + "px")
     $("#" + options.id).css('left', options.x + "px")
 });
@@ -49,7 +49,7 @@ container.on("mouseup", dragEnd);
 container.on("mousemove", drag);
 
 function dragStart(e) {
-    if (e.target.id != "gameboard") {
+    if (e.target.id != "gameboard" && e.button != 2 && $(e.target).attr('locked') != "true") {
         if (e.type === "touchstart") {
             initialX = e.touches[0].clientX - parseInt($(e.target).css('left'));
             initialY = e.touches[0].clientY - parseInt($(e.target).css('top'));
@@ -64,15 +64,17 @@ function dragStart(e) {
 }
 
 function dragEnd(e) {
-    initialX = currentX;
-    initialY = currentY;
-    server.emit('moveItem', {
-        id: dragItem.id,
-        x: parseInt($(dragItem).css('left')),
-        y: parseInt($(dragItem).css('top'))
-    });
-    dragItem.classList.add('animated');
-    dragItem = null;
+    if (dragItem != null) {
+        initialX = currentX;
+        initialY = currentY;
+        server.emit('moveItem', {
+            id: dragItem.id,
+            x: parseInt($(dragItem).css('left')),
+            y: parseInt($(dragItem).css('top'))
+        });
+        dragItem.classList.add('animated');
+        dragItem = null;
+    }
 }
 
 function drag(e) {
