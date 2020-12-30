@@ -7,12 +7,18 @@
             <main>
                 <div class="button-box">
                     <h2>Wilkommen</h2>
+                    <p id="info">Damit diese App funktioniert, müssen Cookies erlaubt sein.</p>
+                    <input id="nameInput" type="text" pattern=".+" placeholder="Name" required></input>
+                    <input id="codeInput" type="text" maxlength="5" pattern="[0-9]{5}" placeholder="Code" required></input>
                     <button id="newRoomBtn">Neuer Raum</button>
-                    <input id="codeInput" type="text" maxlength="5" pattern="[0-9]{5}" placeholder="Code" hidden required></input>
                     <button id="joinBtn">Beitreten</button>
+                    <button id="next">Akzeptieren</button>
                 </div>
             </main>
             <%- include("./segments/footer.ejs") %>
+                <script>
+                    let userId = <%= userId %>;
+                </script>
                 <script type="text/javascript" src="/js/index.js"></script>
     </body>
 

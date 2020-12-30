@@ -34,7 +34,8 @@
 }
 
 .button-box button,
-input {
+.button-box input,
+.button-box p {
     width: 100%;
     padding: 15px;
     border-radius: 5px;

@@ -34,33 +34,45 @@ app.use(express.static('public')); // static files
 app.get('/', (req, res) => {
     res.render('index', {
         file: 'index',
-        title: 'OG | Home'
+        title: 'OG | Home',
+        userId: rand.getInt(1000000000, 9999999999)
     });
 });
 
 // newRoom
 app.get('/new', (req, res) => {
-    if ('game' in req.query) {
-        startGame(req.query.game, res);
+    let cookies = parseCookies(req.headers.cookie);
+    if (cookies.userId === undefined || cookies.userName === undefined) {
+        res.redirect('/?new');
     } else {
-        res.render('new', {
-            file: 'new',
-            title: 'Neuer Raum',
-            presetList: ['UNO']
-        });
+
+        if ('game' in req.query) {
+            startGame(req.query.game, res);
+        } else {
+            res.render('new', {
+                file: 'new',
+                title: 'Neuer Raum',
+                presetList: ['UNO']
+            });
+        }
     }
 });
 
 // active game
 app.get('/[0-9]{5}', (req, res) => {
     let gameCode = req.url.slice(-5);
-    let gameData = game.getRoomJson(gameCode);
-    res.render('game', {
-        file: 'game',
-        title: 'Gameboard',
-        gameCode: req.baseUrl,
-        data: gameData
-    });
+    let cookies = parseCookies(req.headers.cookie);
+    if (cookies.userId === undefined || cookies.userName === undefined) {
+        res.redirect('/?' + gameCode);
+    } else {
+        let gameData = game.getRoomJson(gameCode);
+        res.render('game', {
+            file: 'game',
+            title: 'Gameboard',
+            gameCode: req.baseUrl,
+            data: gameData
+        });
+    }
 });
 
 // 404
@@ -161,6 +173,18 @@ function copyGameinfo(gameCode, options) {
     }
 }
 
+function parseCookies(cookies) {
+    let cookieString = "{";
+    cookies.split('; ').forEach(cookie => {
+        let splitCookie = cookie.split('=');
+        if (cookieString.length > 1) {
+            cookieString += ",";
+        }
+        cookieString += "\"" + splitCookie[0] + "\":\"" + splitCookie[1] + "\"";
+    });
+    cookieString += "}";
+    return JSON.parse(cookieString);
+}
 
 cm.log("green", "Server Running!");
 cm.log("blue", "http://localhost:" + port + "\n-------------------------------------------");
