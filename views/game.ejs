@@ -11,7 +11,7 @@
                 </div>
                 <div id="gameboard">
                     <% let id=0; data.gameboard.forEach(item=> { if(item != null) {%>
-                        <div class="animated" id="<%= id %>" objType="<%= item.type %>" locked="<%= item.locked %>" flipable="<%= item.flipable %>" style="top: <%= item.y %>px; left: <%= item.x %>px;">
+                        <div class="animated" id="<%= id %>" objType="<%= item.type %>" locked="<%= item.locked %>" flipable="<%= item.flipable %>" style="top: <%= item.y %>px; left: <%= item.x %>px; transform: rotate(<%= item.rotation %>deg);">
                             <img src="/res/gamedata/objectdata/<%= item.image %>" alt="<%= item.name %>">
                         </div>
                         <%} id++; }); %>

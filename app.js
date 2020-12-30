@@ -97,8 +97,37 @@ io.on('connection', (client) => {
         game.moveItem(options, gameCode);
         io.emit('moveItem', options);
     });
-});
 
+    client.on('flipItem', (id) => {
+
+    });
+
+    client.on('lockItem', (id) => {
+
+    });
+
+    client.on('unlockItem', (id) => {
+
+    });
+
+    client.on('makeItemPrivate', (id) => {
+
+    });
+
+    client.on('removeItem', (id) => {
+
+    });
+
+    client.on('rollDice', (id) => {
+
+    });
+
+    client.on('shuffleCardset', (id) => {
+
+    });
+
+
+});
 
 function startGame(gameId, res) {
     try {

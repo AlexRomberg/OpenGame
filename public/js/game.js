@@ -18,10 +18,13 @@ server.on('addItem', function (item) {
         .attr('objType', item.type)
         .attr('id', item.id)
         .attr('flipable', item.flipable)
+        .attr('locked', item.locked)
         .css('top', item.y)
         .css('left', item.x)
+        .css('transform', "rotate(" + item.rotation + "deg)")
         .addClass('animated');
     $("#gameboard").append(object);
+    $('#gameboard div').on("contextmenu", rightClick);
 });
 
 server.on('moveItem', function (options) {
