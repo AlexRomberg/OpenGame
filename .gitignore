@@ -3,8 +3,7 @@ node_modules/
 package-lock.json
 
 # data
-data/
-public/res/gamedata/
+data/roomdata/
 
 # VSCode
 .vscode/

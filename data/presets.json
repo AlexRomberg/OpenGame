@@ -1,0 +1,985 @@
+{
+    "presets": [{
+        "name": "UNO",
+        "objects": [{
+            "type": "cardset",
+            "name": "UNOCardset",
+            "image": "UNO/cover.png",
+            "flipable": false,
+            "locked": false,
+            "cards": [{
+                    "type": "object",
+                    "name": "b+2",
+                    "image": "UNO/b+2.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "b+21",
+                    "image": "UNO/b+21.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "b0",
+                    "image": "UNO/b0.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "b01",
+                    "image": "UNO/b01.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "b1",
+                    "image": "UNO/b1.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "b11",
+                    "image": "UNO/b11.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "b2",
+                    "image": "UNO/b2.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "b21",
+                    "image": "UNO/b21.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "b3",
+                    "image": "UNO/b3.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "b31",
+                    "image": "UNO/b31.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "b4",
+                    "image": "UNO/b4.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "b41",
+                    "image": "UNO/b41.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "b5",
+                    "image": "UNO/b5.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "b51",
+                    "image": "UNO/b51.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "b6",
+                    "image": "UNO/b6.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "b61",
+                    "image": "UNO/b61.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "b7",
+                    "image": "UNO/b7.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "b71",
+                    "image": "UNO/b71.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "b8",
+                    "image": "UNO/b8.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "b81",
+                    "image": "UNO/b81.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "b9",
+                    "image": "UNO/b9.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "b91",
+                    "image": "UNO/b91.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "br",
+                    "image": "UNO/br.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "br1",
+                    "image": "UNO/br1.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "bs",
+                    "image": "UNO/bs.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "bs1",
+                    "image": "UNO/bs1.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "cc",
+                    "image": "UNO/cc.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "cc1",
+                    "image": "UNO/cc1.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "cc2",
+                    "image": "UNO/cc2.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "cc3",
+                    "image": "UNO/cc3.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "g+2",
+                    "image": "UNO/g+2.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "g+21",
+                    "image": "UNO/g+21.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "g0",
+                    "image": "UNO/g0.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "g01",
+                    "image": "UNO/g01.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "g1",
+                    "image": "UNO/g1.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "g11",
+                    "image": "UNO/g11.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "g2",
+                    "image": "UNO/g2.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "g21",
+                    "image": "UNO/g21.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "g3",
+                    "image": "UNO/g3.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "g31",
+                    "image": "UNO/g31.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "g4",
+                    "image": "UNO/g4.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "g41",
+                    "image": "UNO/g41.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "g5",
+                    "image": "UNO/g5.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "g51",
+                    "image": "UNO/g51.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "g6",
+                    "image": "UNO/g6.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "g61",
+                    "image": "UNO/g61.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "g7",
+                    "image": "UNO/g7.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "g71",
+                    "image": "UNO/g71.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "g8",
+                    "image": "UNO/g8.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "g81",
+                    "image": "UNO/g81.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "g9",
+                    "image": "UNO/g9.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "g91",
+                    "image": "UNO/g91.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "gr",
+                    "image": "UNO/gr.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "gr1",
+                    "image": "UNO/gr1.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "gs",
+                    "image": "UNO/gs.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "gs1",
+                    "image": "UNO/gs1.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "r+2",
+                    "image": "UNO/r+2.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "r+21",
+                    "image": "UNO/r+21.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "r0",
+                    "image": "UNO/r0.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "r01",
+                    "image": "UNO/r01.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "r1",
+                    "image": "UNO/r1.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "r11",
+                    "image": "UNO/r11.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "r2",
+                    "image": "UNO/r2.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "r21",
+                    "image": "UNO/r21.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "r3",
+                    "image": "UNO/r3.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "r31",
+                    "image": "UNO/r31.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "r4",
+                    "image": "UNO/r4.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "r41",
+                    "image": "UNO/r41.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "r5",
+                    "image": "UNO/r5.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "r51",
+                    "image": "UNO/r51.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "r6",
+                    "image": "UNO/r6.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "r61",
+                    "image": "UNO/r61.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "r7",
+                    "image": "UNO/r7.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "r71",
+                    "image": "UNO/r71.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "r8",
+                    "image": "UNO/r8.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "r81",
+                    "image": "UNO/r81.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "r9",
+                    "image": "UNO/r9.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "r91",
+                    "image": "UNO/r91.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "rr",
+                    "image": "UNO/rr.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "rr1",
+                    "image": "UNO/rr1.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "rs",
+                    "image": "UNO/rs.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "rs1",
+                    "image": "UNO/rs1.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "y+2",
+                    "image": "UNO/y+2.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "y+21",
+                    "image": "UNO/y+21.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "y0",
+                    "image": "UNO/y0.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "y01",
+                    "image": "UNO/y01.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "y1",
+                    "image": "UNO/y1.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "y11",
+                    "image": "UNO/y11.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "y2",
+                    "image": "UNO/y2.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "y21",
+                    "image": "UNO/y21.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "y3",
+                    "image": "UNO/y3.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "y31",
+                    "image": "UNO/y31.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "y4",
+                    "image": "UNO/y4.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "y41",
+                    "image": "UNO/y41.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "y5",
+                    "image": "UNO/y5.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "y51",
+                    "image": "UNO/y51.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "y6",
+                    "image": "UNO/y6.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "y61",
+                    "image": "UNO/y61.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "y7",
+                    "image": "UNO/y7.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "y71",
+                    "image": "UNO/y71.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "y8",
+                    "image": "UNO/y8.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "y81",
+                    "image": "UNO/y81.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "y9",
+                    "image": "UNO/y9.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "y91",
+                    "image": "UNO/y91.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "yr",
+                    "image": "UNO/yr.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "yr1",
+                    "image": "UNO/yr1.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "ys",
+                    "image": "UNO/ys.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                },
+                {
+                    "type": "object",
+                    "name": "ys1",
+                    "image": "UNO/ys1.png",
+                    "flipable": true,
+                    "fliped": false,
+                    "locked": false,
+                    "cover": "UNO/cover.png"
+                }
+            ]
+        }]
+    }]
+}
