@@ -6,13 +6,13 @@ function getGameCode() {
     return url.slice(-5);
 }
 
-$('.library img').click(function (sender) {
+$('.library img').click((sender) => {
     console.log(sender.target.id);
     server.emit('addItem', sender.target.id);
 });
 
 // handle incoming changes
-server.on('addItem', function (item) {
+server.on('addItem', (item) => {
     let object = $('<div></div>')
         .append($("<img>").attr('src', ("/res/gamedata/objectdata/" + item.image)).attr('alt', item.name))
         .attr('objType', item.type)
@@ -27,15 +27,53 @@ server.on('addItem', function (item) {
     $('#gameboard div').on("contextmenu", rightClick);
 });
 
-server.on('moveItem', function (options) {
-    $("#" + options.id).css('top', options.y + "px")
-    $("#" + options.id).css('left', options.x + "px")
+server.on('moveItem', (params) => {
+    $("#" + params.id).css('top', params.y + "px");
+    $("#" + params.id).css('left', params.x + "px");
 });
+
+server.on('removeItem', (id) => {
+    $("#gameboard #" + id).remove();
+});
+
+server.on('setItemLockstate', (params) => {
+    $("#gameboard #" + params.id).attr("locked", params.locked);
+});
+
+server.on('setItemRotation', (params) => {
+    $("#gameboard #" + params.id).css("transform", "rotate(" + params.rotation + "deg)");
+    $("#gameboard #" + params.id)[0].offsetHeight;
+    $("#gameboard #" + params.id).addClass('animated');
+});
+
+server.on('updateImage', (id) => {
+    let d = new Date();
+    $("#gameboard #" + id + " img").attr("src", "/" + getGameCode() + "/" + id + "?" + d.getTime());
+});
+
+server.on('addPrivateItem', (obj) => {
+    console.log(obj);
+    let object = $("<img>")
+        .attr('src', ("/res/gamedata/objectdata/" + obj.item.image))
+        .attr('alt', obj.item.name)
+        .attr('objType', obj.item.type)
+        .attr('id', obj.id)
+        .attr('flipable', obj.item.flipable)
+        .attr('locked', obj.item.locked)
+        .css('margin-left', '5px');
+    $("#personalSpace").append(object);
+    $('#personalSpace *').on("contextmenu", rightClickPrivate);
+});
+
+server.on('deletePrivateItem', (id) => {
+    console.log(id);
+    $("#personalSpace #" + id).remove();
+});
+
+
 
 // draggable items
 var dragItem = null;
-var container = $("#gameboard");
-
 var currentX;
 var currentY;
 var initialX;
@@ -43,13 +81,13 @@ var initialY;
 var xOffset = 0;
 var yOffset = 0;
 
-container.on("touchstart", dragStart);
-container.on("touchend", dragEnd);
-container.on("touchmove", drag);
+$("#gameboard").on("touchstart", dragStart);
+$("#gameboard").on("touchend", dragEnd);
+$("#gameboard").on("touchmove", drag);
 
-container.on("mousedown", dragStart);
-container.on("mouseup", dragEnd);
-container.on("mousemove", drag);
+$("#gameboard").on("mousedown", dragStart);
+$("#gameboard").on("mouseup", dragEnd);
+$("#gameboard").on("mousemove", drag);
 
 function dragStart(e) {
     if (e.target.id != "gameboard" && e.button != 2 && $(e.target).attr('locked') != "true") {

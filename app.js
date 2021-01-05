@@ -1,5 +1,5 @@
 // config
-const port = 80;
+let port = 80;
 
 // load requirements
 const express = require('express');
@@ -20,7 +20,7 @@ if (process.argv.length > 2) {
 
 // init modules
 var app = express();
-var server = app.listen(port);
+var server = app.listen(port, '192.168.139.161');
 var io = socket(server);
 cm.log("green", "modules initialized!");
 
@@ -69,10 +69,17 @@ app.get('/[0-9]{5}', (req, res) => {
         res.render('game', {
             file: 'game',
             title: 'Gameboard',
-            gameCode: req.baseUrl,
-            data: gameData
+            gameCode,
+            data: gameData,
+            userId: cookies.userId
         });
     }
+});
+
+app.get('/[0-9]{5}/[0-9]+', (req, res) => {
+    let gameCode = req.url.substr(1, 5);
+    let imageId = req.url.substr(7).replace(/\?.*/, '');
+    res.redirect('/res/gamedata/objectdata/' + loadImage(imageId, gameCode));
 });
 
 // 404
@@ -83,7 +90,6 @@ app.use((req, res) => {
 });
 
 // handle client connections
-
 io.on('connection', (client) => {
     let gameCode = game.getCode(client);
     let cookies = parseCookies(client.handshake.headers.cookie);
@@ -99,44 +105,77 @@ io.on('connection', (client) => {
     });
 
     client.on('addItem', (id) => {
-        let newItem = game.addItem(id, gameCode);
+        let newItem = game.addItemFromLibrary(id, gameCode);
         io.emit('addItem', newItem);
     });
 
-    client.on('moveItem', (options) => {
-        game.moveItem(options, gameCode);
-        io.emit('moveItem', options);
-    });
-
-    client.on('flipItem', (id) => {
-
-    });
-
-    client.on('lockItem', (id) => {
-
-    });
-
-    client.on('unlockItem', (id) => {
-
-    });
-
-    client.on('makeItemPrivate', (id) => {
-
+    client.on('moveItem', (params) => {
+        game.moveItem(params, gameCode);
+        io.emit('moveItem', params);
     });
 
     client.on('removeItem', (id) => {
+        game.removeItem(id, gameCode);
+        io.emit('removeItem', id);
+    });
 
+    client.on('unlockItem', (id) => {
+        game.setItemLocked(id, gameCode, false);
+        io.emit('setItemLockstate', { id, locked: false });
+    });
+
+    client.on('lockItem', (id) => {
+        game.setItemLocked(id, gameCode, true);
+        io.emit('setItemLockstate', { id, locked: true })
+    });
+
+    client.on('rotateItem', (param) => {
+        let rotation = game.rotateItem(param.id, gameCode, param.deg);
+        io.emit('setItemRotation', { id: param.id, rotation })
+    });
+
+    client.on('flipItem', (id) => {
+        game.flipItem(id, gameCode);
+        io.emit("updateImage", id);
+    });
+
+    client.on('makePrivate', (params) => {
+        let id = game.addObjectPrivate(params.id, gameCode, params.userId);
+        game.removeItem(params.id, gameCode);
+        io.emit("removeItem", params.id);
+        client.emit("addPrivateItem", { item: game.getPrivateObject(id, gameCode, params.userId), id });
+    });
+
+    client.on('shuffleItem', (id) => {
+        game.shuffleCardset(id, gameCode);
+    });
+
+    client.on('getPrivateCard', (params) => {
+        let card = game.getCardFromSet(params.id, gameCode);
+        let returnVal = game.getItemFromCardset(card.card, gameCode, params.userId);
+
+        client.emit("addPrivateItem", { item: returnVal, id: returnVal.id });
+    });
+
+    client.on('getPublicCard', (id) => {
+        let card = game.getCardFromSet(id, gameCode);
+        let newItem = game.addItemFromCardset(card.card, gameCode);
+        if (card.stacksize < 1) {
+            game.removeItem(id);
+            io.emit('removeItem', id);
+        }
+        io.emit('addItem', newItem);
     });
 
     client.on('rollDice', (id) => {
 
     });
 
-    client.on('shuffleCardset', (id) => {
-
+    client.on('makePublic', (params) => {
+        let item = game.addItemFromPrivate(params.id, gameCode, params.userId);
+        io.emit('addItem', item);
+        client.emit('deletePrivateItem', params.id);
     });
-
-
 });
 
 function startGame(gameId, res) {
@@ -150,7 +189,7 @@ function startGame(gameId, res) {
                 while (fs.existsSync('data/roomdata/' + gameCode + '.json')) {
                     gameCode = rand.getInt(10000, 100000);
                 }
-                copyGameinfo(gameCode, presets[gameId]);
+                copyGameinfo(gameCode, convertPreset(presets[gameId]));
                 res.redirect('/' + gameCode);
                 return;
             }
@@ -182,6 +221,28 @@ function parseCookies(cookies) {
     });
     cookieString += "}";
     return JSON.parse(cookieString);
+}
+
+function loadImage(id, gameCode) {
+    let roomData = game.getRoomJson(gameCode);
+    if (roomData.gameboard[id].flipable) {
+        if (roomData.gameboard[id].fliped) {
+            return roomData.gameboard[id].cover;
+        } else {
+            return roomData.gameboard[id].image;
+        }
+    }
+    return roomData.gameboard[id].image;
+}
+
+function convertPreset(preset) {
+    let gameData = {};
+    gameData.presetname = preset.name;
+    gameData.library = preset.objects;
+    gameData.gameboard = [];
+    gameData.privateSpace = [];
+    gameData.messages = [];
+    return gameData;
 }
 
 game.writeUserJson({});

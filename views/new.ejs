@@ -8,15 +8,16 @@
                 <div class="container">
                     <h2>Wähle ein Spiel</h2>
                     <div class="list">
-                        <% presetList.forEach(presetName=> { %>
+                        <% let id=0; presetList.forEach(presetName=> { %>
                             <div class="preset">
-                                <img src="/res/gamedata/presetdata/<%= presetName %>/cover.png" alt="<%= presetName %>cover">
+                                <img id="<%=id%>" src="/res/gamedata/presetdata/<%= presetName %>.png" alt="<%= presetName %>cover">
                             </div>
-                            <% }); %>
+                            <%id++; }); %>
                     </div>
                 </div>
             </main>
             <%- include("./segments/footer.ejs") %>
+                <script src="/js/new.js"></script>
     </body>
 
 </html>

@@ -7,12 +7,16 @@
             <main>
                 <div class="personalSpace">
                     <h2>Privater Bereich</h2>
-                    <div id="personalSpace"></div>
+                    <div id="personalSpace">
+                        <% try {let id=0; (data.privateSpace[userId]).forEach(item=> { if (item != null) { %>
+                            <img id="<%= id %>" src="/res/gamedata/objectdata/<%= item.image %>" alt="<%= item.name %>" flipable="<%= item.flipable %>">
+                            <% } id++; });} catch (e) {}%>
+                    </div>
                 </div>
                 <div id="gameboard">
-                    <% let id=0; data.gameboard.forEach(item=> { if(item != null) {%>
+                    <% id=0; data.gameboard.forEach(item=> { if(item != null) {%>
                         <div class="animated" id="<%= id %>" objType="<%= item.type %>" locked="<%= item.locked %>" flipable="<%= item.flipable %>" style="top: <%= item.y %>px; left: <%= item.x %>px; transform: rotate(<%= item.rotation %>deg);">
-                            <img src="/res/gamedata/objectdata/<%= item.image %>" alt="<%= item.name %>">
+                            <img src="/<%= gameCode %>/<%= id %>" alt="<%= item.name %>"></img>
                         </div>
                         <%} id++; }); %>
                 </div>
