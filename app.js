@@ -20,7 +20,7 @@ if (process.argv.length > 2) {
 
 // init modules
 var app = express();
-var server = app.listen(port, '192.168.139.161');
+var server = app.listen(port);
 var io = socket(server);
 cm.log("green", "modules initialized!");
 
