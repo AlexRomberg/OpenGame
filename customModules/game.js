@@ -95,12 +95,11 @@ exports.getItemFromCardset = function(card, gameCode, userId) {
         itemId = data.privateSpace[userId].length;
         data.privateSpace[userId].push(card);
     } catch (e) {
+        let obj = {};
+        obj[userId] = [card];
         itemId = 0;
-        let cardarray = new Array();
-        cardarray.push(card);
-        data.privateSpace[userId] = cardarray;
+        data.privateSpace = obj;
     }
-    console.log(data.privateSpace);
     this.writeRoomJson(data, gameCode);
     return {
         type: card.type,

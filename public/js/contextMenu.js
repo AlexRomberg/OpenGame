@@ -75,7 +75,7 @@ function addObjectMenu(menu, target) {
             menu.append($("<span></span>").text("Umdrehen").attr("action", "flip"));
         }
         // moveToPrivate
-        menu.append($("<span></span>").text("In privaten Bereich").attr("action", "makePrivate"));
+        menu.append($("<span></span>").text("Aufnehmen").attr("action", "makePrivate"));
     }
 }
 

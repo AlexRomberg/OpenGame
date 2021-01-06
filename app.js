@@ -245,7 +245,10 @@ function convertPreset(preset) {
     return gameData;
 }
 
+// usercontroll
 game.writeUserJson({});
+
+
 
 cm.log("green", "Server Running!");
 cm.log("blue", "http://localhost:" + port + "\n-------------------------------------------");
