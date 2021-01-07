@@ -1,6 +1,7 @@
 // imports
 const socket = require('socket.io');
 const game = require('./game');
+const Cookies = require('./cookie');
 
 // init
 exports.init = function(serverObject) {
@@ -9,7 +10,7 @@ exports.init = function(serverObject) {
     // handle client connections
     io.on('connection', (client) => {
         let gameCode = game.getCode(client);
-        let cookies = parseCookies(client.handshake.headers.cookie);
+        let cookies = Cookies.parse(client.handshake.headers.cookie);
         game.addUser({ id: cookies.userId, name: cookies.userName }, gameCode);
 
         client.on('disconnect', () => {
@@ -94,17 +95,4 @@ exports.init = function(serverObject) {
             client.emit('deletePrivateItem', params.id);
         });
     });
-}
-
-function parseCookies(cookies) {
-    let cookieString = "{";
-    cookies.split('; ').forEach(cookie => {
-        let splitCookie = cookie.split('=');
-        if (cookieString.length > 1) {
-            cookieString += ",";
-        }
-        cookieString += "\"" + splitCookie[0] + "\":\"" + splitCookie[1] + "\"";
-    });
-    cookieString += "}";
-    return JSON.parse(cookieString);
 }

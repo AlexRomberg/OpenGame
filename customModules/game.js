@@ -302,7 +302,7 @@ function shuffle(array) {
 }
 
 
-exports.startGame = function(gameId, res) {
+exports.start = function(gameId, res) {
     try {
         if (Number(gameId) != NaN) {
             const presetfile = fs.readFileSync('data/presets.json', 'utf8');
@@ -313,18 +313,18 @@ exports.startGame = function(gameId, res) {
                 while (fs.existsSync('data/roomdata/' + gameCode + '.json')) {
                     gameCode = rand.getInt(10000, 100000);
                 }
-                copyGameinfo(gameCode, convertPreset(presets[gameId]));
+                this.copyInfo(gameCode, this.convertPreset(presets[gameId]));
                 res.redirect('/' + gameCode);
                 return;
             }
         }
     } catch (err) {
-        cm.log('red', 'Error loading gamepresets');
+        cm.log('red', 'Error loading gamepresets\n(' + err + ')');
     }
     res.redirect('/new');
 }
 
-exports.copyGameinfo = function(gameCode, options) {
+exports.copyInfo = function(gameCode, options) {
     let fileDestinationPath = 'data/roomdata/' + gameCode + '.json';
     try {
         const data = JSON.stringify(options);
@@ -334,7 +334,7 @@ exports.copyGameinfo = function(gameCode, options) {
     }
 }
 
-function convertPreset(preset) {
+exports.convertPreset = function(preset) {
     let gameData = {};
     gameData.presetname = preset.name;
     gameData.library = preset.objects;
@@ -342,4 +342,8 @@ function convertPreset(preset) {
     gameData.privateSpace = [];
     gameData.messages = [];
     return gameData;
+}
+
+exports.exists = function(gameCode) {
+    return fs.access('/data/roomData/' + gameCode + '.json', err => err ? false : true);
 }

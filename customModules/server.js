@@ -1,5 +1,9 @@
 const express = require('express');
-const cm = require('./consoleModule')
+const cm = require('./consoleModule');
+const rand = require('./random');
+const Cookies = require('./cookie');
+const game = require('./game');
+
 
 exports.init = function(port) {
     // init modules
@@ -22,13 +26,13 @@ exports.init = function(port) {
 
     // newRoom
     app.get('/new', (req, res) => {
-        let cookies = parseCookies(req.headers.cookie);
+        let cookies = Cookies.parse(req.headers.cookie);
         if (cookies.userId === undefined || cookies.userName === undefined) {
             res.redirect('/?new');
         } else {
 
             if ('game' in req.query) {
-                startGame(req.query.game, res);
+                game.start(req.query.game, res);
             } else {
                 res.render('new', {
                     file: 'new',
@@ -42,9 +46,11 @@ exports.init = function(port) {
     // active game
     app.get('/[0-9]{5}', (req, res) => {
         let gameCode = req.url.slice(-5);
-        let cookies = parseCookies(req.headers.cookie);
-        if (cookies.userId === undefined || cookies.userName === undefined) {
+        let cookies = Cookies.parse(req.headers.cookie);
+        if (!cookies) {
             res.redirect('/?' + gameCode);
+            // } else if (!game.exists(gameCode)) {
+            // res.redirect('/');
         } else {
             let gameData = game.getRoomJson(gameCode);
             res.render('game', {
