@@ -1,5 +1,7 @@
-const cm = require('./consoleModule');
+// imports
 const fs = require('fs');
+const cm = require('./consoleModule');
+const rand = require('./random');
 
 let ConnectedUsers = 0;
 
@@ -293,10 +295,51 @@ function shuffle(array) {
     var i;
     while (n) {
         i = Math.floor(Math.random() * n--);
-
-        // And move it to the new array.
         copy.push(array.splice(i, 1)[0]);
     }
 
     return copy;
+}
+
+
+exports.startGame = function(gameId, res) {
+    try {
+        if (Number(gameId) != NaN) {
+            const presetfile = fs.readFileSync('data/presets.json', 'utf8');
+            const gamelist = JSON.parse(presetfile);
+            const presets = gamelist.presets;
+            if (presets.length > gameId) {
+                let gameCode = rand.getInt(10000, 100000);
+                while (fs.existsSync('data/roomdata/' + gameCode + '.json')) {
+                    gameCode = rand.getInt(10000, 100000);
+                }
+                copyGameinfo(gameCode, convertPreset(presets[gameId]));
+                res.redirect('/' + gameCode);
+                return;
+            }
+        }
+    } catch (err) {
+        cm.log('red', 'Error loading gamepresets');
+    }
+    res.redirect('/new');
+}
+
+exports.copyGameinfo = function(gameCode, options) {
+    let fileDestinationPath = 'data/roomdata/' + gameCode + '.json';
+    try {
+        const data = JSON.stringify(options);
+        fs.writeFileSync(fileDestinationPath, data, 'utf8');
+    } catch (err) {
+        cm.log("red", "Error creating gameinfo file: " + err);
+    }
+}
+
+function convertPreset(preset) {
+    let gameData = {};
+    gameData.presetname = preset.name;
+    gameData.library = preset.objects;
+    gameData.gameboard = [];
+    gameData.privateSpace = [];
+    gameData.messages = [];
+    return gameData;
 }
