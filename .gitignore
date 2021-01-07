@@ -4,6 +4,7 @@ package-lock.json
 
 # data
 data/roomdata/
+data/users.json
 
 # VSCode
 .vscode/
